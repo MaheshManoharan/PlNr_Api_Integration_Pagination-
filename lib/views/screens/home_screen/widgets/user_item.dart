@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:plnr_api_integration_pagination/utils/dimensions.dart';
+import 'package:plnr_api_integration_pagination/views/screens/detail_screen/detail_screen.dart';
 
 import '../../../../models/user_data.dart';
 import 'user_avatar.dart';
@@ -17,11 +19,11 @@ class UserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(
-        10,
+        Dimensions.PADDING_10,
       ),
       margin: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 10,
+        vertical: Dimensions.PADDING_10,
+        horizontal: Dimensions.PADDING_10,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -38,7 +40,7 @@ class UserItem extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(Dimensions.PADDING_5),
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 49, 91, 231),
                 borderRadius: BorderRadius.circular(20),
@@ -54,9 +56,22 @@ class UserItem extends StatelessWidget {
               ),
             ),
           ),
-          UserAvatar(imageUrl: userItem.avatar),
+          Hero(
+            tag: userItem.avatar,
+            child: InkWell(
+                onTap: () {
+                  // Navigator.of(context).push(
+                  //   PageRouteBuilder(
+                  //     pageBuilder: (_, animation, __) => DetailScreen(
+                  //       userItem: userItem,
+                  //     ),
+                  //   ),
+                  // );
+                },
+                child: UserAvatar(imageUrl: userItem.avatar)),
+          ),
           Container(
-            padding: const EdgeInsets.only(bottom: 4),
+            padding: const EdgeInsets.only(bottom: Dimensions.PADDING_5),
             alignment: Alignment.centerLeft,
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: 1.0, end: 0.0),
@@ -68,14 +83,16 @@ class UserItem extends StatelessWidget {
                   fontSize: 18,
                   color: Color(0xff4c53a5),
                   fontWeight: FontWeight.bold,
-                ),),
-                builder: (context, value, child) 
-                {
-                  return Transform.translate(offset: Offset(value * 100, 0.0), child: child,);
-                },
+                ),
               ),
+              builder: (context, value, child) {
+                return Transform.translate(
+                  offset: Offset(value * 100, 0.0),
+                  child: child,
+                );
+              },
             ),
-          
+          ),
           Container(
             alignment: Alignment.centerLeft,
             child: Text(

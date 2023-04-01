@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:plnr_api_integration_pagination/controllers/api_provider.dart';
+import 'package:plnr_api_integration_pagination/utils/dimensions.dart';
 import 'package:plnr_api_integration_pagination/views/screens/home_screen/widgets/user_avatar.dart';
 import 'package:provider/provider.dart';
 
@@ -20,24 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int pageNumber = 1;
   final ScrollController _scrollController = ScrollController();
 
-  // @override
-  // void initState() {
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     Provider.of<ApiProvider>(context, listen: false)
-  //         .getUserData(pageNumber: 1);
-  //   });
-  //   super.initState();
-  // }
-
-  // Future<void> _loaddata(BuildContext context, bool reload) async {
-  //   print("_loaddata()");
-
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-  //     await Provider.of<ApiProvider>(context, listen: false).getUserData(
-  //       pageNumber: pageNumber,
-  //     );
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? userList.length != 0
                         ? ListView.builder(
                             padding: const EdgeInsets.only(
-                              left: 15,
-                              bottom: 30,
-                              right: 15,
+                              left: Dimensions.PADDING_10,
+                              bottom: Dimensions.PADDING_30,
+                              right: Dimensions.PADDING_15,
                             ),
                             itemCount: userList.length,
                             shrinkWrap: true,
@@ -105,9 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? Center(
                         child: Padding(
                           padding: const EdgeInsets.all(
-                              // Dimensions
-                              //     .ICON_SIZE_EXTRA_SMALL,
-                              20),
+                              Dimensions.PADDING_20
+                              ),
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
                               Theme.of(context).primaryColor,
@@ -124,6 +106,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     Provider.of<ApiProvider>(context, listen: false)
+  //         .getUserData(pageNumber: 1);
+  //   });
+  //   super.initState();
+  // }
+
+  // Future<void> _loaddata(BuildContext context, bool reload) async {
+  //   print("_loaddata()");
+
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+  //     await Provider.of<ApiProvider>(context, listen: false).getUserData(
+  //       pageNumber: pageNumber,
+  //     );
+  //   });
+  // }
 
 // return Padding(
                               //   padding: const EdgeInsets.all(8.0),
