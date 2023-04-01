@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:plnr_api_integration_pagination/controllers/api_provider.dart';
+import 'package:plnr_api_integration_pagination/views/screens/home_screen/widgets/user_avatar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/user_data.dart';
+import 'widgets/user_item.dart';
 
 class HomeScreen extends StatefulWidget {
   static final String route = 'home-screen';
@@ -24,17 +26,18 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  Future<void> _loaddata(BuildContext context, bool reload) async {
-    print("_loaddata()");
+  // Future<void> _loaddata(BuildContext context, bool reload) async {
+  //   print("_loaddata()");
 
-    await Provider.of<ApiProvider>(context, listen: false).getUserData(
-      pageNumber: pageNumber,
-    );
-  }
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+  //     await Provider.of<ApiProvider>(context, listen: false).getUserData(
+  //       pageNumber: pageNumber,
+  //     );
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _loaddata(context, false);
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
@@ -54,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("No content left"),
+              content: Text("End of Data"),
             ),
           );
         }
@@ -62,62 +65,106 @@ class _HomeScreenState extends State<HomeScreen> {
       print("bellow");
     });
 
-    return Scaffold(
-        body: SingleChildScrollView(
-      controller: _scrollController,
-      child: Consumer<ApiProvider>(
-        builder: (context, apiProvider, child) {
-          List<Datum>? userList;
-          userList = apiProvider.data;
+    return SafeArea(
+      child: Scaffold(
+          body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Consumer<ApiProvider>(
+          builder: (context, apiProvider, child) {
+            List<Datum>? userList;
+            userList = apiProvider.data;
 
-          return Column(
-            children: [
-              !apiProvider.firstLoading
-                  ? userList.length != 0
-                      ? ListView.builder(
-                          itemCount: userList.length,
-                          shrinkWrap: true,
-                          primary: false,
-                          itemBuilder: (BuildContext context, int index) {
-                            final userItem = userList![index];
-
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(apiProvider.data[index].firstName),
-                                  Text(apiProvider.data[index].lastName),
-                                  Image.network(apiProvider.data[index].avatar),
-                                  Text(apiProvider.data[index].email),
-                                ],
-                              ),
-                            );
-                          },
-                        )
-                      : SizedBox.shrink()
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-              (!apiProvider.firstLoading && apiProvider.isLoading)
-                  ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(
-                            // Dimensions
-                            //     .ICON_SIZE_EXTRA_SMALL,
-                            20),
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).primaryColor,
+            return Column(
+              children: [
+                !apiProvider.firstLoading
+                    ? userList.length != 0
+                        ? ListView.builder(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              bottom: 30,
+                              right: 15,
+                            ),
+                            itemCount: userList.length,
+                            shrinkWrap: true,
+                            primary: false,
+                            itemBuilder: (BuildContext context, int index) 
+                            {
+                              final userItem = userList![index];
+                              return UserItem(
+                                userItem: userItem,
+                              );
+                            },
+                          )
+                        : const SizedBox.shrink()
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                (!apiProvider.firstLoading && apiProvider.isLoading)
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                              // Dimensions
+                              //     .ICON_SIZE_EXTRA_SMALL,
+                              20),
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).primaryColor,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  : const SizedBox.shrink()
-            ],
-          );
-        },
-      ),
-    ));
+                      )
+                    : const SizedBox.shrink()
+              ],
+            );
+          },
+        ),
+      )),
+    );
   }
-
 }
+
+// return Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Column(
+                              //     children: [
+                              //       Text(apiProvider.data[index].firstName),
+                              //       Text(apiProvider.data[index].lastName),
+                              //       Image.network(apiProvider.data[index].avatar),
+                              //       Text(apiProvider.data[index].email),
+                              //     ],
+                              //   ),
+                              // );
+
+
+ // return Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Row(
+                              //     children: [
+                              //       UserAvatar(imageUrl: userItem.avatar),
+                              //       SizedBox(
+                              //         width: 15,
+                              //       ),
+                              //       Column(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.start,
+                              //         children: [
+                              //           Text(
+                              //             "${userItem.firstName} ${userItem.lastName}",
+                              //             style: const TextStyle(
+                              //               color: Colors.black,
+                              //             ),
+                              //           ),
+                              //           SizedBox(
+                              //             height: 5,
+                              //           ),
+                              //           Text(
+                              //             userItem.email,
+                              //             style: const TextStyle(
+                              //               color: Colors.black,
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ],
+                              //   ),
+                              // );

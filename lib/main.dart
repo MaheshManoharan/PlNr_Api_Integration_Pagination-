@@ -5,9 +5,7 @@ import 'utils/di_container.dart' as di;
 import 'views/screens/home_screen/home_screen.dart';
 
 Future<void> main() async {
-
-
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await di.init();
 
   runApp(
@@ -17,9 +15,8 @@ WidgetsFlutterBinding.ensureInitialized();
           create: ((context) => di.sl<ApiProvider>()),
         ),
       ],
-    child: const MyApp(),
+      child: const MyApp(),
     ),
-
   );
 }
 
@@ -27,10 +24,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Material App',
+        debugShowCheckedModeBanner: false,
+        title: 'User Details',
         initialRoute: HomeScreen.route,
         routes: {
           HomeScreen.route: (context) => const HomeScreen(),
