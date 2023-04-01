@@ -20,14 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
   int pageNumber = 1;
   final ScrollController _scrollController = ScrollController();
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<ApiProvider>(context, listen: false)
-          .getUserData(pageNumber: 1);
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     Provider.of<ApiProvider>(context, listen: false)
+  //         .getUserData(pageNumber: 1);
+  //   });
+  //   super.initState();
+  // }
 
   // Future<void> _loaddata(BuildContext context, bool reload) async {
   //   print("_loaddata()");
@@ -57,11 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
             pageNumber: pageNumber,
           );
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("End of Data"),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content: Text("End of Data"),
+          //   ),
+          // );
+          
         }
       }
       print("bellow");

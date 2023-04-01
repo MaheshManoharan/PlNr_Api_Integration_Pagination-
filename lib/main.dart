@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plnr_api_integration_pagination/views/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'controllers/api_provider.dart';
 import 'utils/di_container.dart' as di;
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'User Details',
-        initialRoute: HomeScreen.route,
+        initialRoute: SplashScreen.route,
         routes: {
           HomeScreen.route: (context) => const HomeScreen(),
+          SplashScreen.route: (context) => const SplashScreen(),
         });
   }
 }
