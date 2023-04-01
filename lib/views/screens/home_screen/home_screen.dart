@@ -22,9 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
-
-    Provider.of<ApiProvider>(context, listen: false).getUserData(pageNumber: 1);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<ApiProvider>(context, listen: false)
+          .getUserData(pageNumber: 1);
     });
     super.initState();
   }
@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
               _scrollController.position.pixels &&
@@ -90,8 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: userList.length,
                             shrinkWrap: true,
                             primary: false,
-                            itemBuilder: (BuildContext context, int index) 
-                            {
+                            itemBuilder: (BuildContext context, int index) {
                               final userItem = userList![index];
                               return UserItem(
                                 userItem: userItem,

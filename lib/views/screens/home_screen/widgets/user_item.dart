@@ -58,15 +58,24 @@ class UserItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(bottom: 4),
             alignment: Alignment.centerLeft,
-            child: Text(
-              "${userItem.firstName} ${userItem.lastName}",
-              style: const TextStyle(
-                fontSize: 18,
-                color: Color(0xff4c53a5),
-                fontWeight: FontWeight.bold,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 1.0, end: 0.0),
+              curve: Curves.bounceInOut,
+              duration: const Duration(milliseconds: 1200),
+              child: Text(
+                "${userItem.firstName} ${userItem.lastName}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Color(0xff4c53a5),
+                  fontWeight: FontWeight.bold,
+                ),),
+                builder: (context, value, child) 
+                {
+                  return Transform.translate(offset: Offset(value * 100, 0.0), child: child,);
+                },
               ),
             ),
-          ),
+          
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
