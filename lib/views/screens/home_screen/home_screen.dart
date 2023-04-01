@@ -22,7 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
+
     Provider.of<ApiProvider>(context, listen: false).getUserData(pageNumber: 1);
+    });
     super.initState();
   }
 
