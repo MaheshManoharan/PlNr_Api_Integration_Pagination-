@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.plnr_api_integration_pagination">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="plnr_api_integration_pagination"
         android:name="${applicationName}"
